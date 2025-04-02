@@ -7,50 +7,48 @@
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
-            padding: 50px;
+            background-color: black;
+            color: white;
             overflow: hidden;
         }
         #container {
             position: relative;
+            margin-top: 50px;
         }
         #tim-face {
             width: 150px;
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
             animation: sway 2s infinite alternate ease-in-out;
         }
         @keyframes sway {
-            from {
-                transform: translateX(-50%) rotate(-5deg);
-            }
-            to {
-                transform: translateX(-50%) rotate(5deg);
-            }
+            from { transform: rotate(-5deg); }
+            to { transform: rotate(5deg); }
         }
         #input-container {
-            margin-top: 200px;
+            margin-top: 50px;
         }
-        input {
+        input, button {
             padding: 10px;
             font-size: 1.2em;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 50px;
+            height: 70px;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: float 10s linear forwards;
+        }
+        @keyframes float {
+            from { bottom: -100px; }
+            to { bottom: 100vh; }
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to Tim Kai's Birthday Celebration!</h1>
+    <h1>Happy Birthday, Tim!</h1>
     <div id="container">
-        <img id="tim-face" src="timkai.png" alt="Tim Kai's Face with Party Hat">
+        <img id="tim-face" src="timkai.png" alt="Tim Kai with Party Hat">
     </div>
     <div id="input-container">
         <input type="text" id="name" placeholder="Enter your name">
@@ -62,6 +60,7 @@
             if (name.toLowerCase() === 'tim kai') {
                 launchConfetti();
                 playMusic();
+                launchBalloons();
             }
         }function launchConfetti() {
         const confettiContainer = document.createElement('div');
@@ -72,7 +71,7 @@
         confettiContainer.style.height = '100%';
         confettiContainer.style.pointerEvents = 'none';
         document.body.appendChild(confettiContainer);
-        
+
         for (let i = 0; i < 100; i++) {
             let confetti = document.createElement('div');
             confetti.style.width = '10px';
@@ -81,7 +80,7 @@
             confetti.style.position = 'absolute';
             confetti.style.top = '0';
             confetti.style.left = `${Math.random() * 100}%`;
-            confetti.style.animation = 'fall 3s linear infinite';
+            confetti.style.animation = 'fall 2.5s linear';
             confetti.style.opacity = '0.8';
             confettiContainer.appendChild(confetti);
         }
@@ -90,6 +89,17 @@
     function playMusic() {
         let audio = new Audio('happy-birthday.mp3');
         audio.play();
+    }
+
+    function launchBalloons() {
+        const colors = ['red', 'blue', 'yellow', 'green', 'purple', 'pink', 'white', 'orange'];
+        for (let i = 0; i < 50; i++) {
+            let balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            balloon.style.left = `${Math.random() * 100}vw`;
+            balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.appendChild(balloon);
+        }
     }
 </script>
 
