@@ -2,95 +2,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tim Kai's Birthday Surprise</title>
+    <title>Birthday Countdown</title>
     <style>
         body {
-            background-color: #121212;
-            color: #fff;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 20px;
+            background-color: #f4f4f4;
+            padding: 50px;
         }
-        .container {
-            margin-top: 50px;
+        #countdown {
+            font-size: 2em;
+            margin-bottom: 20px;
         }
-        h1 {
-            font-size: 2.5em;
-            animation: fadeIn 2s ease-in-out;
-        }
-        .button {
-            background-color: #ff007f;
-            color: #fff;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            cursor: pointer;
-            margin-top: 20px;
-            border-radius: 10px;
-        }
-        .hidden {
+        #enter-site {
             display: none;
-        }
-        .countdown {
-            font-size: 1.5em;
-            margin-top: 20px;
-        }
-        .typing-effect {
-            display: inline-block;
-            border-right: 3px solid #fff;
-            white-space: nowrap;
-            overflow: hidden;
-            font-size: 1.5em;
-            width: 0;
-            animation: typing 4s steps(40, end) forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="typing-effect">Some moments are meant to be unforgettable...</h1>
-        <div class="countdown" id="countdown"></div>
-        <button class="button" onclick="showMessage()">Click to Enter</button>
-        <div id="message" class="hidden">
-            <h2>Happy Birthday, Tim Kai! 🎉</h2>
-            <p>"Some names are more than just words. They are legends."</p>
-            <input type="text" id="nameInput" placeholder="Enter your name">
-            <button class="button" onclick="showResponse()">Unlock your gift</button>
-            <p id="response" class="hidden"></p>
-        </div>
-    </div><script>
-    function showMessage() {
-        document.getElementById('message').classList.remove('hidden');
-    }
-    function showResponse() {
-        let name = document.getElementById('nameInput').value;
-        let response = document.getElementById('response');
-        if (name.toLowerCase() === 'tim kai') {
-            response.innerHTML = "Ah, the birthday star himself! Click <a href='#'>here</a> to unveil your special surprise!";
-        } else {
-            response.innerHTML = "Welcome, " + name + "! Today, we celebrate an extraordinary story. But only Tim Kai can unlock the gift!";
-        }
-        response.classList.remove('hidden');
-    }
+    <h1>Countdown to Tim Kai's Birthday!</h1>
+    <div id="countdown"></div>
+    <button id="enter-site" onclick="enterSite()">Enter the Site</button><script>
     function updateCountdown() {
-        let eventDate = new Date("June 29, 2025 00:00:00").getTime();
-        let now = new Date().getTime();
-        let timeLeft = eventDate - now;
-        let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-        document.getElementById("countdown").innerHTML = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-        setTimeout(updateCountdown, 1000);
+        const eventDate = new Date('June 29, 2025 00:00:00').getTime();
+        const now = new Date().getTime();
+        const timeLeft = eventDate - now;
+
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+        if (timeLeft < 0) {
+            document.getElementById('countdown').innerHTML = "Happy Birthday Tim Kai!";
+            document.getElementById('enter-site').style.display = "block";
+        } else {
+            document.getElementById('enter-site').style.display = "block";
+        }
     }
+
+    function enterSite() {
+        window.location.href = "main.html";
+    }
+
+    setInterval(updateCountdown, 1000);
     updateCountdown();
 </script>
 
