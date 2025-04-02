@@ -2,20 +2,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Countdown</title>
+    <title>Tim Kai's Birthday</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
             background-color: #f4f4f4;
             padding: 50px;
+            overflow: hidden;
         }
-        #countdown {
-            font-size: 2em;
-            margin-bottom: 20px;
+        #container {
+            position: relative;
         }
-        #enter-site {
-            display: none;
+        #tim-face {
+            width: 150px;
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: sway 2s infinite alternate ease-in-out;
+        }
+        @keyframes sway {
+            from {
+                transform: translateX(-50%) rotate(-5deg);
+            }
+            to {
+                transform: translateX(-50%) rotate(5deg);
+            }
+        }
+        #input-container {
+            margin-top: 200px;
+        }
+        input {
+            padding: 10px;
+            font-size: 1.2em;
+        }
+        button {
             padding: 10px 20px;
             font-size: 1.2em;
             background-color: #007bff;
@@ -26,36 +48,50 @@
     </style>
 </head>
 <body>
-    <h1>Countdown to Tim Kai's Birthday!</h1>
-    <div id="countdown"></div>
-    <button id="enter-site" onclick="enterSite()">Enter the Site</button><script>
-    function updateCountdown() {
-        const eventDate = new Date('June 29, 2025 00:00:00').getTime();
-        const now = new Date().getTime();
-        const timeLeft = eventDate - now;
-
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-        document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-        if (timeLeft < 0) {
-            document.getElementById('countdown').innerHTML = "Happy Birthday Tim Kai!";
-            document.getElementById('enter-site').style.display = "block";
-        } else {
-            document.getElementById('enter-site').style.display = "block";
+    <h1>Welcome to Tim Kai's Birthday Celebration!</h1>
+    <div id="container">
+        <img id="tim-face" src="timkai.png" alt="Tim Kai's Face with Party Hat">
+    </div>
+    <div id="input-container">
+        <input type="text" id="name" placeholder="Enter your name">
+        <button onclick="celebrate()">Celebrate!</button>
+    </div>
+    <script>
+        function celebrate() {
+            const name = document.getElementById('name').value;
+            if (name.toLowerCase() === 'tim kai') {
+                launchConfetti();
+                playMusic();
+            }
+        }function launchConfetti() {
+        const confettiContainer = document.createElement('div');
+        confettiContainer.style.position = 'fixed';
+        confettiContainer.style.top = '0';
+        confettiContainer.style.left = '0';
+        confettiContainer.style.width = '100%';
+        confettiContainer.style.height = '100%';
+        confettiContainer.style.pointerEvents = 'none';
+        document.body.appendChild(confettiContainer);
+        
+        for (let i = 0; i < 100; i++) {
+            let confetti = document.createElement('div');
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.position = 'absolute';
+            confetti.style.top = '0';
+            confetti.style.left = `${Math.random() * 100}%`;
+            confetti.style.animation = 'fall 3s linear infinite';
+            confetti.style.opacity = '0.8';
+            confettiContainer.appendChild(confetti);
         }
     }
 
-    function enterSite() {
-        window.location.href = "main.html";
+    function playMusic() {
+        let audio = new Audio('happy-birthday.mp3');
+        audio.play();
     }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
 </script>
 
 </body>
-</html>
+    </html>
